@@ -1,0 +1,61 @@
+<h1>Catálogo de Mieles "El Toti"</h1>
+
+{{#if isValid}}
+  <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+    {{#each docs}}
+      <div
+        style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; width: 250px; background-color: #f9f9f9;"
+      >
+        <h3>{{this.title}}</h3>
+        <p><i>{{this.category}}</i></p>
+        <p>{{this.description}}</p>
+        <p><strong>Precio: ${{this.price}}</strong></p>
+        <p>Stock: {{this.stock}}</p>
+        <button
+          onclick="addToCart('{{this._id}}')"
+          style="background-color: #e67e22; color: white; border: none; padding: 10px; cursor: pointer; width: 100%;"
+        >
+          Agregar al Carrito
+        </button>
+      </div>
+    {{/each}}
+  </div>
+
+  <div style="margin-top: 30px; display: flex; align-items: center; gap: 15px;">
+    {{#if hasPrevPage}}
+      <a
+        href="{{prevLink}}"
+        style="padding: 10px 20px; background-color: #3498db; color: white; text-decoration: none; border-radius: 5px;"
+      >Anterior</a>
+    {{/if}}
+
+    <span style="font-weight: bold; font-size: 1.2em;">Página
+      {{page}}
+      de
+      {{totalPages}}</span>
+
+    {{#if hasNextPage}}
+      <a
+        href="{{nextLink}}"
+        style="padding: 10px 20px; background-color: #3498db; color: white; text-decoration: none; border-radius: 5px;"
+      >Siguiente</a>
+    {{/if}}
+  </div>
+{{else}}
+  <h2>No se encontraron productos.</h2>
+{{/if}}
+
+<script>
+  async function addToCart(productId) { try { let cartId =
+  localStorage.getItem('cartId'); if (!cartId) { const createResponse = await
+  fetch('/api/carts', { method: 'POST' }); const createData = await
+  createResponse.json(); if (createData.status === 'success') { cartId =
+  createData.payload._id; localStorage.setItem('cartId', cartId);
+  console.log("¡Nuevo carrito creado automáticamente con ID:", cartId); } else {
+  alert("Error al crear el carrito automáticamente"); return; } } const response
+  = await fetch(`/api/carts/${cartId}/product/${productId}`, { method: 'POST'
+  }); if(response.ok) { alert("Producto agregado al carrito correctamente"); }
+  else { const data = await response.json(); alert(`Error: ${data.error || 'No
+  se pudo agregar'}`); } } catch(error) { console.error(error); alert("Error de
+  conexión con el servidor"); } }
+</script>

@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "title": "Miel de Eucalipto 1/4kg",
+    "description": "Frasco de medio kilo de miel pura de eucalipto",
+    "code": "MIEL001",
+    "price": 5000,
+    "status": true,
+    "stock": 100,
+    "category": "miel",
+    "thumbnails": [
+      "https://www.ecoplaza.es/27254-large_default/miel-eucalipto-muria-500-gr.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Miel de Girasol 1/2kg",
+    "description": "Frasco de medio kilo de miel pura de girasol",
+    "code": "MIEL002",
+    "price": 5000,
+    "status": true,
+    "stock": 100,
+    "category": "miel",
+    "thumbnails": [
+      "https://mielmayem.com/cdn/shop/files/girasol-natural-500g.jpg?v=1758279217"
+    ]
+  },
+  {
+    "id": 3,
+    "status": true,
+    "thumbnails": [
+      "imagen1.jpg"
+    ],
+    "title": "Miel de Jacaranda",
+    "description": "Miel pura de jacaranda 1kg",
+    "code": "MIEL003",
+    "price": 5000,
+    "stock": 20,
+    "category": "miel"
+  }
+]

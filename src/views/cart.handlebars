@@ -1,0 +1,62 @@
+<h1>Detalle de tu Carrito</h1>
+
+<div style="max-width: 800px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    {{#if cart.products.length}}
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background-color: #34495e; color: white;">
+                    <th style="padding: 12px; text-align: left;">Producto</th>
+                    <th style="padding: 12px; text-align: left;">Precio Unitario</th>
+                    <th style="padding: 12px; text-align: center;">Cantidad</th>
+                    <th style="padding: 12px; text-align: right;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each cart.products}}
+                    <tr style="border-bottom: 1px solid #ddd;">
+                        <td style="padding: 12px;">
+                            <strong>{{this.product.title}}</strong><br>
+                            <small style="color: #7f8c8d;">Código: {{this.product.code}}</small>
+                        </td>
+                        <td style="padding: 12px;">${{this.product.price}}</td>
+                        <td style="padding: 12px; text-align: center;">{{this.quantity}}</td>
+                        <td style="padding: 12px; text-align: right;">
+                            <button onclick="removeFromCart('{{../cart._id}}', '{{this.product._id}}')" style="background-color: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <div style="margin-top: 20px; text-align: right;">
+             <a href="/products" style="padding: 10px 20px; background-color: #3498db; color: white; text-decoration: none; border-radius: 5px;">Seguir Comprando</a>
+        </div>
+    {{else}}
+        <div style="text-align: center; padding: 40px;">
+            <h2>Tu carrito está vacío </h2>
+            <p>¡Nuestras abejas están esperando tu pedido!</p>
+            <a href="/products" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background-color: #e67e22; color: white; text-decoration: none; border-radius: 5px;">Ir al Catálogo</a>
+        </div>
+    {{/if}}
+</div>
+
+<script>
+    async function removeFromCart(cartId, productId) {
+        try {
+            const response = await fetch(`/api/carts/${cartId}/products/${productId}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                location.reload();
+            } else {
+                alert("Error al eliminar el producto");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Error de conexión");
+        }
+    }
+</script>

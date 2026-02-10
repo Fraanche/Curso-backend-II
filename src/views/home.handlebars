@@ -1,0 +1,15 @@
+<h1>Lista de Productos (Estática)</h1>
+<div class="product-list">
+  {{#if products}}
+    {{#each products}}
+      <div class="product-card">
+        <h3>{{this.title}}</h3>
+        <p><strong>Código:</strong> {{this.code}}</p>
+        <p><strong>Precio:</strong> ${{this.price}}</p>
+        <p><strong>Stock:</strong> {{this.stock}}</p>
+      </div>
+    {{/each}}
+  {{else}}
+    <p>No hay productos disponibles.</p>
+  {{/if}}
+</div>
